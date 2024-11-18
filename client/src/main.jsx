@@ -8,7 +8,7 @@ import Registration from './pages/registrationPage.jsx';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import './index.css';
 
-// Resend_API_KEY = re_iXbmc2fK_GsXx6vzzMSk6yzyHpvM2CsYu
+
 const router = createBrowserRouter([
   {
     path: '/',
