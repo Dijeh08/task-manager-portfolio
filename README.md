@@ -1,0 +1,1 @@
+This a task manager app that manages personal tasks and to-do lists. It includes features like categorization and due dates. This app uses a frontend framework like React along with a backend language like Node/Express. It equally contains user authentication and data storage in Postgresql.
