@@ -52,9 +52,9 @@ function Registration(props) {
                       let responseJson = response.data;
                         
                         if (responseJson === 'exist') {
-                            naviagate('/');
+                            naviagate('/task-manager-portfolio/');
                         }else if (responseJson === 'saved') {
-                            naviagate('/user');
+                            naviagate('/task-manager-portfolio/user');
                         }
                   } catch (error) {
                     console.log(error)
@@ -134,7 +134,7 @@ function Registration(props) {
             <hr/>
             <div className="container d-flex justify-content-center">
                 <div>
-                <p className='text-dark link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover'>Already have an account? <Link to={'/'}>Sign in</Link>.</p>
+                <p className='text-dark link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover'>Already have an account? <Link to={'/task-manager-portfolio/'}>Sign in</Link>.</p>
                 </div>
             </div>
         </form>

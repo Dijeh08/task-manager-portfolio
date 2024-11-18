@@ -131,7 +131,7 @@ function Authentication(props) {
                 // setuserInputProfile({
                 //     email: email,
                 //     password: password});
-                navigate('/user', {state: {email: email}});
+                navigate('/task-manager-portfolio/user', {state: {email: email}});
             } else if(!loginAuthentication){
                 console.log('Either you inserted the wrong details or you are not registered')
                 // navigate('/registrationPage');
@@ -147,7 +147,7 @@ function Authentication(props) {
         if (googleUserProfile.verified_email || facebookLoginCondition) {
             // console.log(`Logged in through here`)
             // console.log(facebookUserProfile.email)
-            navigate("/user", {state: { email: googleUserProfile.verified_email? googleUserProfile.email : facebookUserProfile.email}});
+            navigate("/task-manager-portfolio/user", {state: { email: googleUserProfile.verified_email? googleUserProfile.email : facebookUserProfile.email}});
         }
     },[googleUserProfile.verified_email, facebookLoginCondition])
     
@@ -213,7 +213,7 @@ function Authentication(props) {
                                     />
                                 
                                 <div className="mt-2">
-                                    <span className="text-dark link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Don't have an account? <Link to={'/registrationPage'}> Sign-up </Link> </span>
+                                    <span className="text-dark link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Don't have an account? <Link to={'/task-manager-portfolio/registrationPage'}> Sign-up </Link> </span>
                                 </div>
                                 
                             </div>

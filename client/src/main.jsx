@@ -11,17 +11,17 @@ import './index.css';
 
 const router = createBrowserRouter([
   {
-    path: '/task-manager-portfolio',
+    path: '/task-manager-portfolio/',
     element: <Authentication />,
     errorElement: <ErrorPage />
   },
   {
-    path: '/user',
+    path: '/task-manager-portfolio/user',
     element: <MainPage />,
     errorElement: <ErrorPage />
   },
   {
-    path: '/registrationPage',
+    path: '/task-manager-portfolio/registrationPage',
     element: <Registration />,
     errorElement: <ErrorPage />
   },
