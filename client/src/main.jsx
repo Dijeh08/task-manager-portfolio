@@ -11,7 +11,7 @@ import './index.css';
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: '/task_manager',
     element: <Authentication />,
     errorElement: <ErrorPage />
   },
