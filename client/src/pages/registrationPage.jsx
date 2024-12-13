@@ -6,6 +6,7 @@ import axios from "axios";
 
 function Registration(props) {
     const controller = new AbortController();
+    const [darkMode, setDarkMode] = useState(true);
     const naviagate = useNavigate();
     const [isPasswordsSame, setIsPasswordSame] = useState(true);
     const [userRegistrationData, setUserRegistrationData] = useState({
@@ -15,6 +16,10 @@ function Registration(props) {
         password: '',
         password_repeat: ''
     });
+    const htmlElement = document.querySelector('html');
+        htmlElement.setAttribute('data-bs-theme', darkMode? 'dark': 'light');
+
+
     function handleChange(event) {
         const {name, value} = event.target;
         setUserRegistrationData((previousValue) => {
@@ -69,14 +74,19 @@ function Registration(props) {
        
         // console.log(email, password, password_repeat);
     }
+
+    function handleDarkMode(params) {
+        setDarkMode(params);
+    }
     return(
         <>
         <div className='bg-warning text-white text-center mb-4'>
                     <Header 
                         mainHeading={'Register'}
-                        lesserHeading={'Please fill in this form to create an account.'}/>
+                        lesserHeading={'Please fill in this form to create an account.'}
+                        mode={handleDarkMode}/>
         </div>
-        <div className='mx-auto col-6 border  border-1 mt-2'>
+        <div className={`mx-auto col-6 border  border-1 mt-2 ${darkMode? 'border-success': 'border-secondary-subtle'}`}>
         <form className='needs-validation' onSubmit={handleRegister} noValidate>
             <div className="px-5" >
                 <div className="mb-2 d-flex justify-content-between" >

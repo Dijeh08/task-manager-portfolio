@@ -14,13 +14,15 @@ function Authentication(props) {
     const [facebookLoginCondition, setFacebookLoginCondition] = useState(false);
     const [ googleUserProfile, setGoogleUserProfile ] = useState([]);
     const [ userInputProfile, setuserInputProfile ] = useState([]);
-    const [loginAuthenticationState, setloginAuthenticationState] = useState(true)
+    const [loginAuthenticationState, setloginAuthenticationState] = useState(true);
+    const [darkMode, setDarkMode] = useState(true);
     const navigate = useNavigate();
     const [userData, setUserData] = useState({
         email: '',
         password: '',
     });
-  
+    const htmlElement = document.querySelector('html');
+    htmlElement.setAttribute('data-bs-theme', darkMode? 'dark': 'light')
 
     
     const login = useGoogleLogin({
@@ -151,16 +153,24 @@ function Authentication(props) {
         }
     },[googleUserProfile.verified_email, facebookLoginCondition])
     
-   
+    function handleDarkMode(mode) {
+        console.log(mode);
+        setDarkMode(mode);
+
+    }
+
     return(
         <>
         <div className="bg-warning">
-        <h1 className="text-center text-white"><Header mainHeading={'Login to Task Manager App'}/></h1>
+            <h1 className="text-center text-white">
+                <Header 
+                    mainHeading={'Login to Task Manager App'}
+                    mode={handleDarkMode}/>
+            </h1>
         </div>
-        
-        <div className="mx-auto p-2 col-8 ">
-            <div className="position-absolute top-20 start-50 translate-middle-x border border-1 border-secondary-subtle">
-                <div className="w-100 h-100 d-flex justify-content-center p-3" >
+          <div className="d-flex justify-content-center">
+            <div className={`d-flex justify-content-center p-3 border border-2 ${darkMode? 'border-success': 'border-secondary-subtle'} ` }>
+                
                     <form onSubmit={handleSubmit}>
                             <div className="mb-3">
                             
@@ -213,16 +223,17 @@ function Authentication(props) {
                                     />
                                 
                                 <div className="mt-2">
-                                    <span className="text-dark link-primary link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Don't have an account? <Link to={'/task-manager-portfolio/registrationPage'}> Sign-up </Link> </span>
+                                    <span className=" fw-normal">Don't have an account? <Link to={'/task-manager-portfolio/registrationPage'}> Sign-up </Link> </span>
+                                    
                                 </div>
                                 
                             </div>
 
                             
                     </form>
-                </div>
+                
             </div>
-        </div>
+            </div>
         
         
       

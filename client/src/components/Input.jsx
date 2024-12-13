@@ -72,7 +72,7 @@ function Input(props) {
         <div>
             <form onSubmit={handleButtonClick} method="post">
                 <div className="mb-0 col-12 px-2">
-                    <label className="form-label my-0 d-line">Title:</label>
+                    <label className="form-label my-0 d-line text-dark">Title:</label>
                     <input 
                         type="text" 
                         name="title" 
@@ -84,7 +84,7 @@ function Input(props) {
                         autoFocus/>
                 </div>
                 <div className="mb-1 col-12 px-1 py-0 d-line">
-                    <label  className="form-label my-0">Content:</label>
+                    <label  className="form-label my-0 text-dark">Content:</label>
                     <textarea 
                         onChange={handleChange}
                         className="form-control border border-dark my-0" 
@@ -96,7 +96,7 @@ function Input(props) {
                     </textarea>
                 </div>
                 <div className="mb-1 col-12 px-1 py-0 d-line">
-                    <label  className="form-label my-0">Time:</label>
+                    <label  className="form-label my-0 text-dark">Time:</label>
                     <input 
                         type="datetime-local" 
                         name="time" 

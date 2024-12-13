@@ -17,8 +17,10 @@ function MainPage() {
   const [isCompleteDeletePressedState, setCompleteDeletePressedState] = useState(false);
   const [isEditPressed, setIsEditPressed] = useState(false);
   const [isMarkPressed, setMarkPressed] = useState(false);
-
+  const [darkMode, setDarkMode] = useState(true);
   const {email} = location.state;
+  const htmlElement = document.querySelector('html');
+    htmlElement.setAttribute('data-bs-theme', darkMode? 'dark': 'light')
 
   // GET request for remote todo-list in index.js
   const fetchToDoAPI = async (req, res) => {
@@ -117,10 +119,16 @@ function MainPage() {
     setMarkPressed(!isMarkPressed);
   }
  
+  function handleDarkMode(mode) {
+    setDarkMode(mode)
+    console.log(`this is the mode ${mode}`)
+  }
   return(
   <>
   <div className='bg-warning text-white p-3'>
-      <Header mainHeading={'GET THINGS DONE!'}/>    
+      <Header 
+        mainHeading={'GET THINGS DONE!'}
+        mode={handleDarkMode}/>    
   </div>
   <div className='container'>
     <div className='row d-flex justify-content-center'>

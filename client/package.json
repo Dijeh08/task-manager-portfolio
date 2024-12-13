@@ -20,6 +20,7 @@
     "@react-email/components": "^0.0.25",
     "@react-oauth/google": "^0.12.1",
     "axios": "^1.7.7",
+    "bootstrap-icons": "^1.11.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "http-proxy-middleware": "^3.0.3",
