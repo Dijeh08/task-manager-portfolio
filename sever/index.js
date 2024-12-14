@@ -9,6 +9,10 @@ import bcrypt from 'bcrypt';
 import { Resend } from 'resend';
 import {dirname} from 'path';
 import {fileURLToPath} from 'url';
+import mongoose from 'mongoose';
+import TodoList from './models/TodoAppIncompleted.js';
+import CompletedTodo from './models/TodoAppCompleted.js';
+import UserData from './models/User.js';
 
 env.config();
 
@@ -27,23 +31,30 @@ const db = new pg.Client({
   password: process.env.SECRET_PASSWORD,
   port: process.env.SECRET_PORT,
 });
+
+mongoose.connect(process.env.DB_URL)
+.then(() => {
+  console.log('Connected to DataBase!')
+  app.listen(port, () => console.log(`Server running on port ${port}`))
+})
+.catch((error) => console.log(error))
+
 db.connect();
+
 
 // enabling CORS for any unknown origin(https://xyz.example.com)
 app.use(cors());
 
+// const result = await db.query('select * from public.todo_list ORDER BY id ASC ');
+// var notes = result.rows
 
-const result = await db.query('select * from public.todo_list ORDER BY id ASC ');
-var notes = result.rows
-
-// Get all Jokes
+// Get all Todo
 app.post("/all", async(req, res) => {
   const {email} = req.body
   // console.log(email)
   try {
-    const notes = (await db.query('SELECT * FROM todo_list WHERE email = $1 ORDER BY id ASC ', [email])).rows;
-  // console.log(notes)
-  res.json(notes).status(200);
+    const notes = await TodoList.find({email: email}).exec();
+    res.json(notes).status(200);
   } catch (error) {
     console.log(error);
   }
@@ -51,14 +62,22 @@ app.post("/all", async(req, res) => {
 });
 
 // Delete a ToDo content in the dataBase
-app.delete("/note/:id", async (req, res) => {
-  const id = req.params.id;
+app.delete("/note/:_id", async (req, res) => {
+  const id = req.params._id;
+  console.log(id)
   try {
-    await db.query('DELETE FROM todo_list WHERE id = $1', [id]);
-    res.status(201).send('deleted');
+    await TodoList.deleteOne({id: id});
+    console.log('hello')
+    res.status(201).send('deleted')
   } catch (error) {
     console.log(error);
   }
+  // try {
+  //   await db.query('DELETE FROM todo_list WHERE id = $1', [id]);
+  //   res.status(201).send('deleted');
+  // } catch (error) {
+  //   console.log(error);
+  // }
   
   
 });
@@ -67,13 +86,29 @@ app.delete("/note/:id", async (req, res) => {
 app.post("/note", async(req, res) => {
   const {title, content, date, email, time} = req.body;
   // console.log(title, content, date, email, time)
+
+  // Insert Data into TodoList MongoDB Collection
   try {
-    await db.query('INSERT INTO todo_list (title, content, date, email, time) VALUES($1, $2, $3, $4, $5)', [title, content, date, email, time]);
+    await TodoList.create({
+      title: title,
+      content: content,
+      date: date, 
+      email: email, 
+      time: time,
+    });
     res.status(201).send('saved');
   } catch (error) {
     res.status(400)
-        .send("Failed to Fetch activity. Please try again")
+      .send("Failed to Fetch activity. Please try again");
   }
+ 
+  // try {
+  //   // await db.query('INSERT INTO todo_list (title, content, date, email, time) VALUES($1, $2, $3, $4, $5)', [title, content, date, email, time]);
+  //   res.status(201).send('saved');
+  // } catch (error) {
+  //   res.status(400)
+  //       .send("Failed to Fetch activity. Please try again")
+  // }
   
 });
 
@@ -228,6 +263,3 @@ app.delete("/complete/:id", async (req, res) => {
 
 
 
-app.listen(port, () => {
-    console.log(`Server running on port ${port}`);
-})

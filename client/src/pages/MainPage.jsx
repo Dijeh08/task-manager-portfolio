@@ -35,7 +35,7 @@ function MainPage() {
             }}, {signal: controller.signal});
 
         const todoNote = response.data
-
+        // console.log(todoNote);
         if (isUncomplete) {
           setNotes(todoNote);
           
@@ -121,7 +121,7 @@ function MainPage() {
  
   function handleDarkMode(mode) {
     setDarkMode(mode)
-    console.log(`this is the mode ${mode}`)
+    // console.log(`this is the mode ${mode}`)
   }
   return(
   <>
@@ -164,12 +164,11 @@ function MainPage() {
       {notes.map((note, index) =>{
         return(
           <Note 
-            key={note.id}
-            id={note.id}
+            key={note._id}
+            id={note._id}
             title={note.title}
             content={note.content}
             date = {note.date}
-            time = {note.time}
             deleteUnCompletePressed={handleDeleteClick}
             deleteCompletePressed={handleCompleteDeleteClick}
             toDoOptionState={isUncomplete}

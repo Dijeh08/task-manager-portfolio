@@ -26,7 +26,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />
   },
 ]);
-console.log(import.meta.env)
+
 createRoot(document.getElementById('root')).render(
   
   

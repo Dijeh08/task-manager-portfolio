@@ -130,7 +130,7 @@ function Note(props) {
        
     }
     
-    const dateData = new Date(props.time)
+    const dateData = new Date(props.date)
    let localDate = dateData.toDateString()
    let localTime = dateData.toTimeString().split(" ")
     return(
