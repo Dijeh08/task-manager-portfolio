@@ -81,6 +81,7 @@ function Note(props) {
     function handleSubmit (event) {
         event.preventDefault();
         const {id, title, content, time} = editedNote;
+        console.log(id, title, content, time)
         
         setIsSubmitPressed(!isSubmitPressed);
         // console.log(`this is the time ${time}`)
@@ -90,11 +91,11 @@ function Note(props) {
                 headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json' },
-                method: 'patch',
+                method: 'post',
                 url: `http://localhost:3000/note/${id}`,
                 data: JSON.stringify({
                     title: title,
-                    content: time.length > 0 ? `${content} on ${(new Date(time)).toLocaleString()}` : content,
+                    content: time ? `${content} on ${(new Date(time)).toLocaleString()}` : content,
                     time: time,
                 })
             });

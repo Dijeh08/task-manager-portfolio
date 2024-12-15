@@ -15,8 +15,7 @@ const todoSchema = new Schema({
     },
     date: { 
         type: Date, 
-        default: Date.now },
-    id: {type: String}
+        default: Date.now }
   }, {timestamps: true});
   const TodoList = model('TodoList', todoSchema);
   export default TodoList;

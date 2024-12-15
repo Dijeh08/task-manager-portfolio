@@ -16,7 +16,6 @@ const todoSchema = new Schema({
     date: { 
         type: Date, 
         default: Date.now },
-    id: {type: String}
   }, {timestamps: true});
   const CompletedTodo = model('CompletedTodo', todoSchema);
   export default CompletedTodo;

@@ -13,7 +13,7 @@ function Header(props) {
     }
     return(
         <>
-        <div className="d-flex justify-content-between mx-3 py-1">
+        <div className="d-flex justify-content-between mx-5 pt-1">
             <div className="">
                 <h1><AppRegistrationOutlinedIcon/>{props.mainHeading}</h1>
                 
