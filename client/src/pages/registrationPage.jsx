@@ -2,9 +2,11 @@ import React, {useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import Header from '../components/Header.jsx';
 import axios from "axios";
-import 'bootstrap-icons/font/bootstrap-icons.css'
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import Modal from '../components/Modal.jsx';
 
 function Registration(props) {
+    const [passwordVisibility, setPasswordVisibility] = useState(false)
     const controller = new AbortController();
     const [darkMode, setDarkMode] = useState(true);
     const naviagate = useNavigate();
@@ -16,6 +18,7 @@ function Registration(props) {
         password: '',
         password_repeat: ''
     });
+    
     const htmlElement = document.querySelector('html');
         htmlElement.setAttribute('data-bs-theme', darkMode? 'dark': 'light');
 
@@ -35,7 +38,7 @@ function Registration(props) {
         
         const {firstName, lastName, email, password, password_repeat} = userRegistrationData;
         // console.log(firstName, lastName, email, password, password_repeat)
-        if (firstName.length & lastName.length & email.length & password.length & password_repeat.length) {
+        if (firstName.length > 0 & lastName.length > 0 & email.length > 0 & password.length > 0 & password_repeat.length > 0) {
            
             if (password === password_repeat) {
                 console.log('Same')
@@ -69,11 +72,12 @@ function Registration(props) {
             } else {
                 setIsPasswordSame(previousState => !previousState)
                 // console.log('Not Same')
-                alert('Please your passwords must be the same')
+                alert('Please your passwords must be the same');
             }
-        }else{
-            alert('Fill in the empty boxes');
         }
+        // else{
+        //     alert('Fill in the empty boxes');
+        // }
        
         // console.log(email, password, password_repeat);
     }
@@ -83,24 +87,35 @@ function Registration(props) {
     }
 
     function handlePasswordVisibility1() {
-        var x = document.getElementById("exampleInputPassword1");
+        var x = document.getElementById("inputPassword1");
         if (x.type === "password") {
             x.type = "text";
+            setPasswordVisibility(true)
         } else {
             x.type = "password";
+            setPasswordVisibility(false)
         }
         
     }
 
     function handlePasswordVisibility2() {
-        var x = document.getElementById("exampleInputPassword2");
+        var x = document.getElementById("inputPassword2");
         if (x.type === "password") {
+            setPasswordVisibility(true);
             x.type = "text";
         } else {
             x.type = "password";
+            setPasswordVisibility(false);
         }
-        
     }
+
+    function handlePasswordInsertion(params) {
+        const element1 = document.getElementById('inputPassword1');
+        const element2 = document.getElementById('inputPassword2');
+        element1.value = params;
+        element2.value = params;
+    }
+
     return(
         <>
         <div className='bg-warning text-white text-center mb-2'>
@@ -109,7 +124,7 @@ function Registration(props) {
                         lesserHeading={'Please fill in this form to create an account.'}
                         mode={handleDarkMode}/>
         </div>
-        <div className={`mx-auto col-5 border  border-1  ${darkMode? 'border-success': 'border-secondary-subtle'}`}>
+        <div className={`mx-auto col-6 border  border-1  ${darkMode? 'border-success': 'border-secondary-subtle'}`}>
         <form className='needs-validation was-validated' onSubmit={handleRegister} noValidate>
             <div className="pe-4 ps-2 pb-1" >
                 <div className="mb-1 d-flex justify-content-between" >
@@ -137,23 +152,35 @@ function Registration(props) {
                     
                 </div>
                 <div className="mb-1 row">
-                    <label htmlFor="exampleInputPassword1" className="form-label"><b>Password</b></label>
+                    <label htmlFor="inputPassword1" className="form-label"><b>Password</b></label>
                     <div className="col-lg-8 input-group">
-                        <input type="password" onChange={handleChange} placeholder="Password" name='password' className="form-control" id="exampleInputPassword1" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" required/>
-                        <button onClick={handlePasswordVisibility1} className="input-group-text" id="basic-addon2"><i className="bi bi-eye"></i></button>
+                        <input type="password" onChange={handleChange} placeholder="Password" name='password' className="form-control" id="inputPassword1" pattern="^(?=.*[A-Za-z])(?=.*\d)(?!.* )(?=.*\W).{8,}$" required/>
+                        {passwordVisibility? 
+                            <button onClick={handlePasswordVisibility1} className="input-group-text" id="basic-addon1"><i className="bi bi-eye"></i></button>
+                            :
+                            <button onClick={handlePasswordVisibility1} className="input-group-text" id="basic-addon2"><i className="bi bi-eye-slash"></i></button>
+                        }
+                        <Modal 
+                            passwordGenerated={handlePasswordInsertion}/>
                     </div>
                     <div id="passwordHelpBlock" className="form-text">
-                        Your password must be 8-20 characters long, contain letters and numbers.
+                        Your password must be 8-20 characters long, contain letters, symbols and numbers.
                     </div>
                 </div>
                
                 <div className="mb-1 row">
-                    <label htmlFor="exampleInputPassword2" className="form-label"><b>Repeat Password</b></label>
+                    <label htmlFor="inputPassword2" className="form-label"><b>Repeat Password</b></label>
                     <div className="col-lg-8 input-group">
-                        <input type="password" onChange={handleChange} placeholder="Repeat Password" name='password_repeat' className="form-control" id="exampleInputPassword2" pattern="[A-Za-z0-9]{8,}$" required/>
-                        <button onClick={handlePasswordVisibility2} className="input-group-text" id="basic-addon2"><i className="bi bi-eye"></i></button>
-                        {isPasswordsSame? null : <p className='text-danger'>Please your passwords must be the same</p>}
+                        <input type="password" onChange={handleChange} placeholder="Repeat Password" name='password_repeat' className="form-control" id="inputPassword2" pattern="^(?=.*[A-Za-z])(?=.*\d)(?!.* )(?=.*\W).{8,}$" required/>
+                        
+                        {passwordVisibility?
+                            <button onClick={handlePasswordVisibility2} className="input-group-text"><i className="bi bi-eye"></i></button>
+                            :
+                            <button onClick={handlePasswordVisibility2} className="input-group-text" ><i className="bi bi-eye-slash"></i></button>
+                        }
+                        
                     </div>
+                    {isPasswordsSame? null : <p className='text-danger'>Please your passwords must be the same</p>}
                 </div>
                 <div className='d-flex align-items-center flex-column'>
                     <div>
@@ -176,6 +203,7 @@ function Registration(props) {
         </form>
         </div>
         
+            
         </>
     )
 }
