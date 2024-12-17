@@ -7,8 +7,6 @@ import Authentication from './pages/authenticationPage.jsx';
 import Registration from './pages/registrationPage.jsx';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import './index.css';
-import { BackgroundProvider } from './pages/BackgroundContext.jsx';
-import { green } from '@mui/material/colors';
 
 
 const router = createBrowserRouter([
@@ -31,11 +29,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById('root')).render(
   
-  <BackgroundProvider>
     <GoogleOAuthProvider clientId= {import.meta.env.VITE_SECRET_CLIENT_ID}>
-    <div style={{ backgroundColor: green, minHeight: '100vh' }}>
+    
       <RouterProvider router={router}/>
-    </div> 
+    
     </GoogleOAuthProvider>,
-  </BackgroundProvider>
+  
 )
