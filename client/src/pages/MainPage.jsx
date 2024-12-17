@@ -3,7 +3,8 @@ import {useLocation} from 'react-router-dom'
 import Header from '../components/Header';
 import Input from '../components/Input';
 import Note from '../components/Note';
-import axios from "axios"
+import axios from "axios";
+
 
 
 function MainPage() {

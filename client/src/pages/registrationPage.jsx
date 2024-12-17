@@ -5,7 +5,9 @@ import axios from "axios";
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import Modal from '../components/Modal.jsx';
 
+
 function Registration(props) {
+
     const [passwordVisibility, setPasswordVisibility] = useState(false)
     const controller = new AbortController();
     const [darkMode, setDarkMode] = useState(true);
@@ -84,6 +86,7 @@ function Registration(props) {
 
     function handleDarkMode(params) {
         setDarkMode(params);
+     
     }
 
     function handlePasswordVisibility1() {
